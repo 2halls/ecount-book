@@ -8,10 +8,6 @@ class Account {
     this.content = content;
     this.transactionType = transactionType;
   }
-
-  getDate() {
-    return this.date;
-  }
 }
 
 module.exports = Account;

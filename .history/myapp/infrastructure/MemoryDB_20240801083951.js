@@ -4,7 +4,7 @@ class MemoryDB {
   }
 
   add(date, value) {
-    const key = date.substring(0, 7);
+    const key = this.makeTimestamp(date);
     if (!this.database.has(key)) {
       this.database.set(key, []);
     }
@@ -17,9 +17,11 @@ class MemoryDB {
       return [];
     }
 
-    let data = this.database.get(key);
-    data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    return data;
+    return this.database.has(key);
+  }
+
+  makeTimestamp(date) {
+    return date.substring(0, 7);
   }
 }
 const db = new MemoryDB();

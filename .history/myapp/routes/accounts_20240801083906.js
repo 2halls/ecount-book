@@ -16,10 +16,7 @@ router.post("/", function (req, res) {
 router.get("/", function (req, res) {
   const year = req.query.year;
   const month = req.query.month;
-  const data = db.fetch(year, month);
-  console.log(data);
-  res.status(200);
-  res.json(new ApiResponse(200, "OK", "가계부 조회 성공", data));
+  db.fetch();
 });
 
 module.exports = router;

@@ -17,9 +17,7 @@ class MemoryDB {
       return [];
     }
 
-    let data = this.database.get(key);
-    data.sort((a, b) => new Date(b.date) - new Date(a.date));
-    return data;
+    return this.database.get(key);
   }
 }
 const db = new MemoryDB();
