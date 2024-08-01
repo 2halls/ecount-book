@@ -1,0 +1,15 @@
+{
+    "name": "ecount-book",
+    "version": "1.0.0",
+    "description": "ecount 첫 번째 과제",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node src/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.2"
+    }
+}
