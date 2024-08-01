@@ -1,3 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Hello from scripts.js!');
+document.addEventListener('DOMContentLoaded', async () => {
+    const accounts = await getAccounts(2017, 11)
 });
