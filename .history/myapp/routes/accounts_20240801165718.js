@@ -20,6 +20,7 @@ router.get("/", function (req, res) {
   const sort = req.query.sort;
   const order = req.query.order;
   const data = db.fetchAccounts(year, month, sort, order);
+  console.log(data);
   res.status(200);
   res.json(new ApiResponse(200, "OK", "가계부 조회 성공", data));
 });

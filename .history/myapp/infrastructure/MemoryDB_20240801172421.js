@@ -25,13 +25,12 @@ class MemoryDB {
     }
 
     let data = this.accounts.get(key);
-    if (sort === "date") {
+    if (sort !== undefined) {
       if (order === "desc") {
-        data.sort((a, b) => new Date(b.date + "T" + b.time + ":00") - new Date(a.date + "T" + a.time + ":00"));
+        data.sort((a, b) => new Date(b.date + "T" + b.time) - new Date(a.date + "T" + b.time));
         return data;
       } else {
-        data.sort((a, b) => new Date(a.date + "T" + a.time + ":00") - new Date(b.date + "T" + b.time + ":00"));
-        return data;
+        return data.sort((a, b) => new Date(a.date + "T" + b.time) - new Date(b.date + "T" + b.time));
       }
     }
 
@@ -66,11 +65,11 @@ class MemoryDB {
     statement1.add("housing", 500000, "expension");
     this.statements.set("2017-04", statement1);
 
-    this.accounts.set("2017-11", [
-      new Account("2017-11-17", "23:07", "카카오뱅크", "food", 3000, "김밥 냠냠", "expension"),
-      new Account("2017-11-27", "23:07", "토스뱅크", "transportation", 1500, "교통비 냠냠", "expension"),
-      new Account("2017-11-17", "11:07", "카카오뱅크", "travel", 10000, "여행 냠냠", "expension"),
-      new Account("2017-11-03", "23:07", "국민은행", "salary", 1000000, "월급 냠냠", "revenue"),
+    this.accounts.set("2017-03", [
+      new Account("2017-03-17", "23:07", "카카오뱅크", "food", 3000, "김밥 냠냠", "expension"),
+      new Account("2017-03-27", "23:07", "토스뱅크", "transportation", 1500, "교통비 냠냠", "expension"),
+      new Account("2017-03-17", "11:07", "카카오뱅크", "travel", 10000, "여행 냠냠", "expension"),
+      new Account("2017-03-03", "23:07", "국민은행", "salary", 1000000, "월급 냠냠", "revenue"),
     ]);
 
     let statement2 = new Statement();
@@ -78,7 +77,7 @@ class MemoryDB {
     statement2.add("transportation", 1500, "expension");
     statement2.add("travel", 10000, "expension");
     statement2.add("salary", 1000000, "revenue");
-    this.statements.set("2017-11", statement2);
+    this.statements.set("2017-03", statement2);
   }
 }
 const db = new MemoryDB();
