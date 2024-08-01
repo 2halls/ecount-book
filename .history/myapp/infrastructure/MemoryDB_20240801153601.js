@@ -27,11 +27,12 @@ class MemoryDB {
     return data;
   }
 
-  fetchStatement(date) {
-    const key = date.substring(0, 7);
+  fetchStatement(year, month) {
+    const key = year + "-" + month;
     if (!this.statements.has(key)) {
       return null;
     }
+
     return this.statements.get(key);
   }
 }

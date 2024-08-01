@@ -26,14 +26,6 @@ class MemoryDB {
     data.sort((a, b) => new Date(b.date) - new Date(a.date));
     return data;
   }
-
-  fetchStatement(date) {
-    const key = date.substring(0, 7);
-    if (!this.statements.has(key)) {
-      return null;
-    }
-    return this.statements.get(key);
-  }
 }
 const db = new MemoryDB();
 module.exports = db;
