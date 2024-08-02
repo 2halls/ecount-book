@@ -25,12 +25,12 @@ class MemoryDB {
     }
 
     let data = this.accounts.get(key);
-    if (sort === "date") {
+    if (sort !== undefined) {
       if (order === "desc") {
-        data.sort((a, b) => new Date(b.date + "T" + b.time + ":00") - new Date(a.date + "T" + a.time + ":00"));
+        data.sort((a, b) => new Date(b.date + "T" + b.time) - new Date(a.date + "T" + b.time));
         return data;
       } else {
-        data.sort((a, b) => new Date(a.date + "T" + a.time + ":00") - new Date(b.date + "T" + b.time + ":00"));
+        data.sort((a, b) => new Date(a.date + "T" + b.time) - new Date(b.date + "T" + b.time));
         return data;
       }
     }

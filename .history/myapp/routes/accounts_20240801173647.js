@@ -11,7 +11,7 @@ router.post("/", function (req, res) {
   db.add(newAccount.getDate(), newAccount);
   const statement = db.fetchStatement(newAccount.getDate());
   res.status(201);
-  res.json(new ApiResponse(201, "가계부 입력 성공", statement.getTotal()));
+  res.json(new ApiResponse(201, "Created", "가계부 입력 성공", statement.getTotal()));
 });
 
 router.get("/", function (req, res) {
@@ -21,7 +21,7 @@ router.get("/", function (req, res) {
   const order = req.query.order;
   const data = db.fetchAccounts(year, month, sort, order);
   res.status(200);
-  res.json(new ApiResponse(200, "가계부 조회 성공", data));
+  res.json(new ApiResponse(200, "OK", "가계부 조회 성공", data));
 });
 
 module.exports = router;
