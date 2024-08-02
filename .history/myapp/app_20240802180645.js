@@ -29,11 +29,10 @@ app.use("/users", usersRouter);
 app.use("/accounts", accountsRouter);
 app.use("/statements", statementRouter);
 
-app.use(express.static("public"));
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  // next(createError(404));
+  res.status(404).send("404 error");
 });
 
 // error handler
