@@ -7,11 +7,107 @@
     <title>가계부웹앱</title>
     <link rel="stylesheet" href="/src/styles/index.css
     ">
+    <script src="/src/index.js" type="module"></script>
 </head>
 
+
 <body>
-    <script src="/src/index.js"></script>
-    <h1>Hello, Express!</h1>
+    <h1>가계부</h1>
+    <!-- <main class="App"></main> -->
+    <div class="month">
+        <div class="month-navigation">
+            <button id="prev-month-btn">이전 달</button>
+            <input type="month" id="current-month-picker">
+            <button id="next-month-btn">다음 달</button>
+        </div>
+
+        <div>
+            <button id="current-month-btn">
+                이번 달
+            </button>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr align="center">
+                <p>
+                    <th>
+                        <span>전체</span>
+                        <span>(2)</span>
+                    </th>
+                    <th>
+                        <span>수입</span>
+                        <span>(2)</span>
+                    </th>
+                    <th>
+                        <span>지출</span>
+                        <span>(2)</span>
+                    </th>
+                </p>
+            </tr>
+            <tr>
+                <th><input type="checkbox" id="select-all"></th>
+                <th>날짜</th>
+                <th>자산</th>
+                <th>분류</th>
+                <th>내용</th>
+                <th>금액</th>
+            </tr>
+        </thead>
+        <tbody id="accounts-body">
+            <!-- 가계부 내역 -->
+        </tbody>
+    </table>
+
+    <!-- Offcanvas Button-->
+    <button id="add-transaction-btn">+</button>
+
+    <!-- Offcanvas -->
+    <div id="offcanvas" class="offcanvas">
+        <div class="offcanvas-content">
+            <button id="close-offcanvas-btn">X</button>
+            <h2>내역 상세</h2>
+
+            <div>
+                <input type="radio" name="transactionType" id="income" value="income" checked>
+                <label for="income">수입</label>
+                <input type="radio" name="transactionType" id="expense" value="expense">
+                <label for="expense">지출</label>
+            </div>
+
+            <form id="transaction-form">
+                <label for="date">날짜:</label>
+                <input type="date" id="date" required><br>
+                <label for="time">시간:</label>
+                <input type="time" id="time" required><br>
+                <label for="bank">은행:</label>
+                <select id="bank" required>
+                    <option value="bank1">은행1</option>
+                    <option value="bank2">은행2</option>
+                    <option value="bank2">은행3</option>
+                    <option value="bank2">은행4</option>
+                    <option value="bank2">은행5</option>
+                </select>
+                <br>
+
+                <div id="category-container">
+                    <label for="revenue-category">분류:</label>
+                    <select id="revenue-category" required>
+                        <option value="" disabled selected>선택</option>
+                        <option value="salary">급여</option>
+                        <option value="pension">퇴직연금(회사몫)</option>
+                    </select>
+                </div><br>
+                <label for="amount">금액:</label>
+                <input type="number" id="amount" required>
+                <br>
+                <label for="content">메모:</label>
+                <input type="text" id="content"><br>
+                <button type="submit">등록</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>
