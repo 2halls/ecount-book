@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.month {
+    display: flex;
+    gap: 40px;
+}
+
+.month-navigation {
+    display: flex;
+    justify-content: center;
+}
+
+#summary {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table,
+th,
+td {
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+th p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-transaction-btn {
+    display: block;
+    margin: 20px auto;
+}
+
+.offcanvas {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s;
+    padding: 20px;
+}
+
+.offcanvas-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#close-offcanvas-btn {
+    align-self: flex-end;
+}
+
+.offcanvas.show {
+    right: 0;
+}
