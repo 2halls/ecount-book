@@ -61,7 +61,7 @@ class MemoryDB {
 	"category": "transportation",
 	"amount": 1000,
 	"content": "그냥 적고 싶은 말",
-	"transactionType": "expension"
+	"transactionType": "expense"
 }
 const db = new MemoryDB();
 module.exports = db;
