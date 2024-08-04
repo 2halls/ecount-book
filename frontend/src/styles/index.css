@@ -126,7 +126,7 @@ tbody tr:hover {
   background-color: #f8f9fa;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   transition: right 0.3s ease;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .offcanvas.show {
@@ -243,7 +243,7 @@ tbody tr:hover {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
