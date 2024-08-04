@@ -1,113 +1,178 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>가계부웹앱</title>
-    <link rel="stylesheet" href="/src/styles/index.css
-    ">
-    <script src="/src/index.js" type="module"></script>
-</head>
+    <link
+      rel="stylesheet"
+      href="/src/styles/index.css
+    "
+    />
+  </head>
 
+  <body>
+    <header>
+      <h1>가계부</h1>
+    </header>
 
-<body>
-    <h1>가계부</h1>
-    <!-- <main class="App"></main> -->
     <div class="month">
-        <div class="month-navigation">
-            <button id="prev-month-btn">이전 달</button>
-            <input type="month" id="current-month-picker">
-            <button id="next-month-btn">다음 달</button>
-        </div>
+      <div class="month-navigation">
+        <button id="prev-month-btn">이전 달</button>
+        <input type="month" id="current-month-picker" />
+        <button id="next-month-btn">다음 달</button>
+      </div>
 
-        <div>
-            <button id="current-month-btn">
-                이번 달
-            </button>
-        </div>
+      <div>
+        <button id="current-month-btn">이번 달</button>
+      </div>
     </div>
 
     <table>
-        <thead>
-            <tr align="center">
-                <p>
-                    <th>
-                        <span>전체</span>
-                        <span>(2)</span>
-                    </th>
-                    <th>
-                        <span>수입</span>
-                        <span>(2)</span>
-                    </th>
-                    <th>
-                        <span>지출</span>
-                        <span>(2)</span>
-                    </th>
-                </p>
-            </tr>
-            <tr>
-                <th><input type="checkbox" id="select-all"></th>
-                <th>날짜</th>
-                <th>자산</th>
-                <th>분류</th>
-                <th>내용</th>
-                <th>금액</th>
-            </tr>
-        </thead>
-        <tbody id="accounts-body">
-            <!-- 가계부 내역 -->
-        </tbody>
+      <thead>
+        <tr align="center">
+          <th colspan="2">
+            <div>
+              <span>전체</span>
+              <span id="total-count" class="table-head-count">(0)</span>
+            </div>
+            <span class="total-amount" id="total-amount">0 원</span>
+          </th>
+          <th colspan="2">
+            <div>
+              <span>수입</span>
+              <span id="revenue-count" class="table-head-count">(0)</span>
+            </div>
+            <span class="total-amount revenue-amount" id="revenue-amount"
+              >0 원</span
+            >
+          </th>
+          <th colspan="2">
+            <div>
+              <span>지출</span>
+              <span id="expense-count" class="table-head-count">(0)</span>
+            </div>
+            <span class="total-amount expense-amount" id="expense-amount"
+              >0 원</span
+            >
+          </th>
+        </tr>
+        <tr>
+          <th><input type="checkbox" id="select-all" /></th>
+          <th id="sort-date" style="cursor: pointer">날짜</th>
+          <th>자산</th>
+          <th>분류</th>
+          <th>내용</th>
+          <th>금액</th>
+        </tr>
+      </thead>
+      <tbody id="accounts-body">
+        <!-- 가계부 내역 -->
+      </tbody>
     </table>
+
+    <p class="empty-message" id="empty-message" style="display: none">
+      해당 달에 가계부 내역이 없습니다.
+    </p>
 
     <!-- Offcanvas Button-->
     <button id="add-transaction-btn">+</button>
 
     <!-- Offcanvas -->
     <div id="offcanvas" class="offcanvas">
-        <div class="offcanvas-content">
-            <button id="close-offcanvas-btn">X</button>
-            <h2>내역 상세</h2>
+      <div class="offcanvas-header">
+        <button id="close-offcanvas-btn">X</button>
+        <h2>내역 상세</h2>
+      </div>
 
-            <div>
-                <input type="radio" name="transactionType" id="income" value="income" checked>
-                <label for="income">수입</label>
-                <input type="radio" name="transactionType" id="expense" value="expense">
-                <label for="expense">지출</label>
-            </div>
+      <div class="offcanvas-content-header">
+        <input
+          type="radio"
+          name="transactionType"
+          id="revenue"
+          value="revenue"
+          checked
+        />
+        <label for="revenue">수입</label>
+        <input
+          type="radio"
+          name="transactionType"
+          id="expense"
+          value="expense"
+        />
+        <label for="expense">지출</label>
+      </div>
 
-            <form id="transaction-form">
-                <label for="date">날짜:</label>
-                <input type="date" id="date" required><br>
-                <label for="time">시간:</label>
-                <input type="time" id="time" required><br>
-                <label for="bank">은행:</label>
-                <select id="bank" required>
-                    <option value="bank1">은행1</option>
-                    <option value="bank2">은행2</option>
-                    <option value="bank2">은행3</option>
-                    <option value="bank2">은행4</option>
-                    <option value="bank2">은행5</option>
-                </select>
-                <br>
+      <div class="offcanvas-content">
+        <form id="transaction-form">
+          <label for="date">날짜 *</label>
+          <input type="date" id="date" required />
+          <label for="time">시간 *</label>
+          <input type="time" id="time" required />
+          <label for="bank">은행 *</label>
+          <select id="bank" required>
+            <option value="" disabled selected>선택</option>
+            <option value="카카오뱅크">카카오뱅크</option>
+            <option value="하나은행">하나은행</option>
+            <option value="국민은행">국민은행</option>
+            <option value="토스뱅크">토스뱅크</option>
+            <option value="기업은행">기업은행</option>
+          </select>
 
-                <div id="category-container">
-                    <label for="revenue-category">분류:</label>
-                    <select id="revenue-category" required>
-                        <option value="" disabled selected>선택</option>
-                        <option value="salary">급여</option>
-                        <option value="pension">퇴직연금(회사몫)</option>
-                    </select>
-                </div><br>
-                <label for="amount">금액:</label>
-                <input type="number" id="amount" required>
-                <br>
-                <label for="content">메모:</label>
-                <input type="text" id="content"><br>
-                <button type="submit">등록</button>
-            </form>
-        </div>
+          <div id="category-container">
+            <label for="revenue-category">분류 *</label>
+            <select id="revenue-category" required>
+              <option value="" disabled selected>선택</option>
+              <option value="salary">급여</option>
+              <option value="pension">퇴직연금(회사몫)</option>
+            </select>
+          </div>
+
+          <label for="amount">금액 *</label>
+          <input type="number" id="amount" required />
+
+          <label for="content">메모</label>
+          <input type="text" id="content" />
+          <button type="submit">등록</button>
+        </form>
+      </div>
     </div>
-</body>
 
+    <!-- 월별 손익계산서 Modal -->
+    <div id="revenue-statement-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-modal-btn">&times;</span>
+        <h2 class="modal-header">월별 손익계산서</h2>
+        <p id="statement-date" class="modal-header"></p>
+
+        <div class="modal-body">
+          <div class="expenses">
+            <h3>지출</h3>
+            <ul id="expenses-list"></ul>
+          </div>
+          <div class="revenue">
+            <h3>수입</h3>
+            <ul id="revenue-list"></ul>
+          </div>
+        </div>
+
+        <footer class="info">
+          <p id="net-revenue"></p>
+        </footer>
+      </div>
+    </div>
+
+    <footer class="info">
+      <p>
+        Created by
+        <a href="https://github.com/2halls/ecount-book">TWO HYUNS</a>
+      </p>
+      <p>
+        Project on GitHub:
+        <a href="https://github.com/2halls/ecount-book">ECOUNT 2024</a>
+      </p>
+    </footer>
+
+    <script src="/src/index.js" type="module"></script>
+  </body>
 </html>

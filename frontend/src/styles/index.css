@@ -1,76 +1,341 @@
+html,
 body {
-    font-family: Arial, sans-serif;
+  padding: 0;
+  width: 1440px;
+  margin: 24px auto 0;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+header h1 {
+  margin-bottom: 24px;
 }
 
 .month {
-    display: flex;
-    gap: 40px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .month-navigation {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-#summary {
-    text-align: center;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-around;
+#prev-month-btn,
+#next-month-btn,
+#current-month-btn {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#prev-month-btn:hover,
+#next-month-btn:hover,
+#current-month-btn:hover {
+  background-color: #0056b3;
+}
+
+#prev-month-btn:active,
+#next-month-btn:active,
+#current-month-btn:active {
+  transform: scale(0.98);
+}
+
+#add-transaction-btn {
+  display: block;
+  margin: 40px auto;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50%;
+  font-size: 2em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#add-transaction-btn:hover {
+  background-color: #218838;
+}
+
+#add-transaction-btn:active {
+  transform: scale(0.95);
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
 table,
 th,
 td {
-    border: none;
-    border-bottom: 1px solid black;
+  border: none;
+  border-bottom: 1px solid #dee2e6;
 }
 
 th,
 td {
-    padding: 10px;
-    text-align: center;
+  padding: 12px;
+  text-align: center;
 }
 
-th p {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+th {
+  background-color: #f8f9fa;
+  color: #343a40;
+  font-weight: bold;
 }
 
-#add-transaction-btn {
-    display: block;
-    margin: 20px auto;
+tbody tr:hover {
+  background-color: #e9ecef;
 }
 
+.total-amount {
+  font-weight: bold;
+}
+
+.total-amount.revenue-amount {
+  color: #007bff;
+}
+
+.total-amount.expense-amount {
+  color: #dc3545;
+}
+
+/* Offcanvas Styles */
 .offcanvas {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100%;
-    background-color: white;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: right 0.3s;
-    padding: 20px;
-}
-
-.offcanvas-content {
-    display: flex;
-    flex-direction: column;
-}
-
-#close-offcanvas-btn {
-    align-self: flex-end;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 1000;
 }
 
 .offcanvas.show {
-    right: 0;
+  right: 0;
+}
+
+.offcanvas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+}
+
+.offcanvas-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+#close-offcanvas-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#close-offcanvas-btn:hover {
+  color: #0056b3;
+}
+
+/* Offcanvas Styles */
+.offcanvas-content {
+  padding: 15px;
+}
+
+.offcanvas-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  padding: 35px 15px 0;
+}
+
+.offcanvas-content-header label {
+  margin-right: 15px;
+}
+
+.offcanvas-content input[type='radio'] {
+  margin-right: 5px;
+}
+
+.offcanvas-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.offcanvas-content input,
+.offcanvas-content select,
+.offcanvas-content button {
+  width: 100%;
+  padding: 10px 0 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1em;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.offcanvas-content input:focus,
+.offcanvas-content select:focus,
+.offcanvas-content button:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+.offcanvas-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.offcanvas-content button:hover {
+  background-color: #0056b3;
+}
+
+.offcanvas-content button:active {
+  transform: scale(0.98);
+}
+
+/* Category Container */
+#category-container {
+  margin-bottom: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .offcanvas {
+    width: 100%;
+  }
+}
+.empty-message {
+  text-align: center;
+  color: #6c757d;
+  margin: 100px 0;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fff;
+  align-items: center;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal-body li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  width: 90%;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body li:last-child {
+  border-bottom: none;
+}
+
+#net-revenue {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  color: #28a745;
+}
+
+/* Footer Styles */
+.info {
+  margin: 65px auto 0;
+  color: #4d4d4d;
+  font-size: 14px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.info p {
+  line-height: 1;
+}
+
+.info a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.info a:hover {
+  text-decoration: underline;
 }
