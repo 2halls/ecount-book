@@ -1,24 +1,6 @@
 const API_END_POINT = 'http://172.29.12.18:3001';
 
-const categoryMap = {
-  expense: {
-    food: '식비',
-    travel: '여행,여가',
-    transportation: '교통비',
-    housing: '주거,통신',
-    education: '교육비',
-    tax: '증여,세금,이자',
-  },
-  revenue: {
-    salary: '월급',
-    pension: '퇴직연금(회사몫)',
-  },
-};
-
-const formattedMonth = (month) => {
-  return String(month).padStart(2, '0');
-};
-
+// apis
 const getAccounts = async (year, month, sort = 'date', order = 'asc') => {
   try {
     const queryParams = new URLSearchParams({
@@ -79,6 +61,27 @@ const getStatements = async (year, month) => {
   }
 };
 
+// utils
+const categoryMap = {
+  expense: {
+    food: '식비',
+    travel: '여행,여가',
+    transportation: '교통비',
+    housing: '주거,통신',
+    education: '교육비',
+    tax: '증여,세금,이자',
+  },
+  revenue: {
+    salary: '월급',
+    pension: '퇴직연금(회사몫)',
+  },
+};
+
+const formattedMonth = (month) => {
+  return String(month).padStart(2, '0');
+};
+
+// render
 const renderAccounts = (accounts) => {
   const accountsBody = document.getElementById('accounts-body');
   const emptyMessage = document.getElementById('empty-message');
@@ -190,11 +193,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const sortDateHeader = document.getElementById('sort-date');
 
   // 초기화 시 기본값 설정
-  currentMonthPicker.value = `${currentYear}-${String(currentMonth).padStart(
-    2,
-    '0'
-  )}`;
-
   const updateMonthDisplay = () => {
     currentMonthPicker.value = `${currentYear}-${String(currentMonth).padStart(
       2,
@@ -207,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetchAndDisplayAccounts(currentYear, currentMonth);
   };
 
-  // 초기화 시 기본값 설정
+  // 초기 렌더링 진입점
   updateMonthDisplay();
   fetchAndDisplayAccounts(currentYear, currentMonth, currentSort, currentOrder);
 
@@ -264,20 +262,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const expenseRadio = document.getElementById('expense');
   const categoryContainer = document.getElementById('category-container');
 
+  const toggleOffcanvas = () => {
+    offcanvas.classList.toggle('show');
+  };
+
   document
     .getElementById('close-offcanvas-btn')
     .addEventListener('click', function () {
       document.getElementById('offcanvas').classList.remove('show');
     });
 
-  const toggleOffcanvas = () => {
-    offcanvas.classList.toggle('show');
-  };
-
   addTransactionBtn.addEventListener('click', toggleOffcanvas);
+
   closeOffcanvasBtn.addEventListener('click', function () {
     document.getElementById('offcanvas').classList.remove('show');
   });
+
+
 
   transactionForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -357,7 +358,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           formattedMonth(currentMonth)
         );
 
-        console.log('@@@', { statements });
         renderRevenueStatement({
           year: currentYear,
           month: formattedMonth(currentMonth),
@@ -376,8 +376,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     ).textContent = `기간: ${year}-${month
       .toString()
       .padStart(2, '0')}-01 ~ ${year}-${month
-      .toString()
-      .padStart(2, '0')}-${new Date(year, month, 0).getDate()}`;
+        .toString()
+        .padStart(2, '0')}-${new Date(year, month, 0).getDate()}`;
 
     const expensesList = document.getElementById('expenses-list');
     const revenueList = document.getElementById('revenue-list');
